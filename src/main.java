@@ -5,6 +5,19 @@ class Movie{
     String movieName;
     int ticketPrice;
     int[][] availableSeats;
+   void AvaiableSeats(){
+       for(int x = 0;x<availableSeats[0].length;x++){
+           System.out.print(" Seat - " + (x+1));
+           if(availableSeats[0][x] == 0){
+               System.out.println(" Available ");
+           }
+           else{
+               System.out.println(" Booked ");
+           }
+       }
+   }
+
+
 }
 
 
@@ -15,8 +28,16 @@ public class main {
                System.out.println("Name : " + names[x]);
                System.out.println("Email : " + emails[x]);
                System.out.println("PhoneNumber: " + phoneNumbers[x]);
-           }
 
+
+           }
+       }
+       static void TotalRevenue(int[] Revenue ){
+             int total = 0;
+             for(int x = 0;x< Revenue.length;x++){
+                 total = total + Revenue[x];
+             }
+           System.out.println("Total Revenue of Cinema : " + total);
        }
 
     public static void main(String[] args) {
@@ -32,35 +53,15 @@ public class main {
              movie[i] = new Movie();
              movie[i].movieName = MoviesNames[i];
              movie[i].ticketPrice =  TicketPrices[i];
+             movie[i].availableSeats = new int[1][totalSeats];
          }
-         int[][] seats = {
-                 {0, 0, 0, 0, 0},
-                 {0, 0, 0, 0, 0},
-                 {0, 0, 0, 0, 0}
-         };
-         for(int row = 0;row<seats.length;row++){
-             System.out.print(MoviesNames[row] + "  ");
-             for(int column = 0;column<seats[row].length;column++){
-                 System.out.print(seats[row][column] + "  ");
-             }
-             System.out.println();
-         }
-        System.out.println();
-        System.out.println("*************************");
-        System.out.println();
-        int totalCustomers = 10;
+
+        int totalCustomers = 5;
+        int[] Revenue = new int[totalCustomers];
         String[] names = new String[totalCustomers];
         String[] emails = new String[totalCustomers];
         String[] phoneNumbers = new String[totalCustomers];
             for(int x = 0;x<totalCustomers;x++){
-                System.out.print("Enter your name : ");
-                names[x] = input.nextLine();
-                System.out.print("Enter your email : ");
-                emails[x] = input.nextLine();
-                System.out.print("Enter your phone number : ");
-                phoneNumbers[x] = input.nextLine();
-                System.out.println();
-                System.out.println("****************************");
                 System.out.println();
                 System.out.print("Enter movie you want to watch : ");
                 String movieName = input.nextLine();
@@ -70,8 +71,11 @@ public class main {
                     if(movieName.equalsIgnoreCase(MoviesNames[y])){
                         isMovieValid = true;
                         movieIndex = y;
+                        System.out.println(" Movie:  " + movieName);
+                        movie[y].AvaiableSeats();
                         break;
                     }
+
                 }
                 if(isMovieValid){
                     System.out.print("Booked your seat  (Y/N) : ");
@@ -79,30 +83,38 @@ public class main {
                     if(BookedSeat.equalsIgnoreCase("Y")){
                         boolean Booked = false;
                          for(int count = 0;count<totalSeats;count++){
-                             if(seats[movieIndex][count] == 0){
-                                 seats[movieIndex][count] = 1;
+                             if(movie[movieIndex].availableSeats[0][count] == 0){
+                                 movie[movieIndex].availableSeats[0][count] = 1;
+                                 Revenue[movieIndex] = movie[movieIndex].ticketPrice;
                                  Booked = true;
                                  break;
                              }
                          }
                          if(Booked){
+                             System.out.print("Enter your name : ");
+                             names[x] = input.nextLine();
+                             System.out.print("Enter your email : ");
+                             emails[x] = input.nextLine();
+                             System.out.print("Enter your phone number : ");
+                             phoneNumbers[x] = input.nextLine();
+                             System.out.println();
                              System.out.println("You have booked a seat for " + movieName + " successfully");
+
                          }
                          else{
-                             System.out.println("All seats are already booked");
+                             System.out.println("All seats are already booked,enter another movie you want to watch");
                          }
                     }
                     else{
-                        System.out.print(" None ");
+                        System.out.println("Cancel ");
+
                     }
                 }
                 else{
                     System.out.println("You have enter movie which are not available ");
                 }
             }
-
-
         PersonalDetails(names,emails,phoneNumbers,totalCustomers);
-
+        TotalRevenue( Revenue );
     }
 }
