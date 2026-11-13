@@ -23,21 +23,23 @@ class Movie{
 
 
 public class main {
-       static void PersonalDetails(String[] names,String[] emails,String[] phoneNumbers,int totalCustomers ){
+       static void PersonalDetails(String[] names,String[] emails,String[] phoneNumbers,int totalCustomers,String[] confirmMovie,int[] TicketPrices){
            for(int x = 0;x<totalCustomers;x++){
+               System.out.println("****************************");
                System.out.println("Name : " + names[x]);
                System.out.println("Email : " + emails[x]);
                System.out.println("PhoneNumber: " + phoneNumbers[x]);
-
-
+               System.out.println("Seat : booked ");
+               System.out.println("Movie : " + confirmMovie[x]);
+               System.out.println("*******************************");
            }
        }
-       static void TotalRevenue(int[] Revenue ){
-             int total = 0;
+       static void TotalRevenue(int[] Revenue ,int[] TicketPrices){
+            int totalRevenue = 0;
              for(int x = 0;x< Revenue.length;x++){
-                 total = total + Revenue[x];
+               totalRevenue =   totalRevenue  + Revenue[x]*TicketPrices[x];
              }
-           System.out.println("Total Revenue of Cinema : " + total);
+           System.out.println("Total Revenue of Cinema : " +  totalRevenue);
        }
 
     public static void main(String[] args) {
@@ -61,7 +63,9 @@ public class main {
         String[] names = new String[totalCustomers];
         String[] emails = new String[totalCustomers];
         String[] phoneNumbers = new String[totalCustomers];
-            for(int x = 0;x<totalCustomers;x++){
+        String[] confirmMovie = new String[totalCustomers];
+        int x =0;
+           while(x<totalCustomers){
                 System.out.println();
                 System.out.print("Enter movie you want to watch : ");
                 String movieName = input.nextLine();
@@ -99,7 +103,8 @@ public class main {
                              phoneNumbers[x] = input.nextLine();
                              System.out.println();
                              System.out.println("You have booked a seat for " + movieName + " successfully");
-
+                             confirmMovie[x] = movieName;
+                             x++;
                          }
                          else{
                              System.out.println("All seats are already booked,enter another movie you want to watch");
@@ -109,12 +114,15 @@ public class main {
                         System.out.println("Cancel ");
 
                     }
+
                 }
                 else{
                     System.out.println("You have enter movie which are not available ");
                 }
             }
-        PersonalDetails(names,emails,phoneNumbers,totalCustomers);
-        TotalRevenue( Revenue );
+
+               PersonalDetails(names,emails,phoneNumbers,totalCustomers,confirmMovie,TicketPrices);
+               TotalRevenue( Revenue ,TicketPrices);
+
     }
 }
