@@ -31,13 +31,14 @@ public class main {
                System.out.println("PhoneNumber: " + phoneNumbers[x]);
                System.out.println("Seat : booked ");
                System.out.println("Movie : " + confirmMovie[x]);
+               System.out.println("Ticket price: " + TicketPrices[x]);
                System.out.println("*******************************");
            }
        }
-       static void TotalRevenue(int[] Revenue ,int[] TicketPrices){
+       static void TotalRevenue(int[] Revenue){
             int totalRevenue = 0;
              for(int x = 0;x< Revenue.length;x++){
-               totalRevenue =   totalRevenue  + Revenue[x]*TicketPrices[x];
+               totalRevenue =   totalRevenue  + Revenue[x];
              }
            System.out.println("Total Revenue of Cinema : " +  totalRevenue);
        }
@@ -89,7 +90,7 @@ public class main {
                          for(int count = 0;count<totalSeats;count++){
                              if(movie[movieIndex].availableSeats[0][count] == 0){
                                  movie[movieIndex].availableSeats[0][count] = 1;
-                                 Revenue[movieIndex] = movie[movieIndex].ticketPrice;
+                                 Revenue[x] = movie[movieIndex].ticketPrice;
                                  Booked = true;
                                  break;
                              }
@@ -122,7 +123,7 @@ public class main {
             }
 
                PersonalDetails(names,emails,phoneNumbers,totalCustomers,confirmMovie,TicketPrices);
-               TotalRevenue( Revenue ,TicketPrices);
+               TotalRevenue( Revenue);
 
     }
 }
